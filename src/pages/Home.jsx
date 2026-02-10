@@ -28,8 +28,8 @@ export default function HomePage() {
   const handleShare = async () => {
     if (navigator.share) {
       await navigator.share({
-        title: 'Portfolio',
-        url: 'https://portfolio.com'
+        title: 'Portf4olio',
+        url: 'https://portf4olio.com'
       });
     } else {
       navigator.clipboard.writeText('https://portfolio.com');
@@ -54,17 +54,17 @@ export default function HomePage() {
           <div className="absolute inset-0 flex items-center justify-center bg-white z-40">
             <div className="flex flex-col items-center gap-3">
               <Loader2 className="w-8 h-8 text-blue-500 animate-spin" />
-              <span className="text-gray-500 text-sm">Loading Portfolio.com...</span>
+              <span className="text-gray-500 text-sm">Loading Portf4olio.com...</span>
             </div>
           </div>
         )}
         
         <iframe
           ref={iframeRef}
-          src="https://portfolio.com"
+          src="https://portf4olio.com"
           className="w-full h-full border-0"
           onLoad={handleLoad}
-          title="Portfolio.com"
+          title="Portf4olio.com"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         />
