@@ -1,0 +1,990 @@
+/* Profile Visibility Page Styles */
+
+.privacy-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    color: rgba(255, 255, 255, 0.6);
+    gap: 12px;
+}
+
+.privacy-loading p {
+    font-size: 14px;
+}
+
+.privacy-error {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #f87171;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.privacy-success {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: #22c55e;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.privacy-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.privacy-option {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    width: 100%;
+}
+
+.privacy-option:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.privacy-option.selected {
+    background: rgba(59, 130, 246, 0.12);
+    border-color: rgba(59, 130, 246, 0.4);
+}
+
+.privacy-option:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.privacy-option-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.8);
+    flex-shrink: 0;
+}
+
+.privacy-option.selected .privacy-option-icon {
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+}
+
+.privacy-option-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
+}
+
+.privacy-option-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+}
+
+.privacy-option-description {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.4;
+}
+
+.privacy-option.selected .privacy-option-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.privacy-option-radio {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+.privacy-option-radio.checked {
+    border-color: #3b82f6;
+    background: #3b82f6;
+}
+
+.radio-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+.main-folders {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.main-folder-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+    text-align: left;
+}
+
+.main-folder-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateX(4px);
+}
+
+.main-folder-card.public {
+    border-left: 3px solid #22c55e;
+}
+
+.main-folder-card.private {
+    border-left: 3px solid #3b82f6;
+}
+
+.main-folder-card.hidden {
+    border-left: 3px solid #6b7280;
+}
+
+.main-folder-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.main-folder-card.public .main-folder-icon {
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+}
+
+.main-folder-card.private .main-folder-icon {
+    background: rgba(59, 130, 246, 0.15);
+    color: #3b82f6;
+}
+
+.main-folder-card.hidden .main-folder-icon {
+    background: rgba(107, 114, 128, 0.15);
+    color: #9ca3af;
+}
+
+.main-folder-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.main-folder-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+}
+
+.main-folder-desc {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.main-folder-count {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 4px;
+}
+
+.main-folder-arrow {
+    color: rgba(255, 255, 255, 0.4);
+    flex-shrink: 0;
+}
+
+.privacy-note {
+    margin-top: 24px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+}
+
+.privacy-note p {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.privacy-note strong {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Privacy Sections */
+.privacy-section {
+    margin-bottom: 28px;
+}
+
+.privacy-section-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    margin: 0 0 8px 0;
+}
+
+.privacy-section-desc {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0 0 12px 0;
+}
+
+/* Quick Actions */
+.quick-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.quick-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.quick-action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.quick-action-btn.public {
+    background: rgba(34, 197, 94, 0.15);
+    border-color: rgba(34, 197, 94, 0.3);
+    color: #22c55e;
+}
+
+.quick-action-btn.public:hover:not(:disabled) {
+    background: rgba(34, 197, 94, 0.25);
+}
+
+.quick-action-btn.private {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.3);
+    color: #3b82f6;
+}
+
+.quick-action-btn.private:hover:not(:disabled) {
+    background: rgba(59, 130, 246, 0.25);
+}
+
+.quick-action-btn.hidden {
+    background: rgba(107, 114, 128, 0.15);
+    border-color: rgba(107, 114, 128, 0.3);
+    color: #9ca3af;
+}
+
+.quick-action-btn.hidden:hover:not(:disabled) {
+    background: rgba(107, 114, 128, 0.25);
+}
+
+/* Video Folders */
+.video-folder {
+    margin-bottom: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.folder-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    width: 100%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.8);
+    transition: background 0.2s;
+}
+
+.folder-header:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.folder-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.folder-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    flex: 1;
+}
+
+.folder-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+}
+
+.folder-count {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.folder-content {
+    padding: 0 16px 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.folder-empty {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 13px;
+    text-align: center;
+    padding: 20px 0;
+    margin: 0;
+}
+
+.folder-videos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 12px;
+}
+
+.folder-video-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
+}
+
+.video-thumb {
+    width: 50px;
+    height: 70px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #2a2a2a;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.video-thumb video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-thumb .play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    opacity: 0.8;
+}
+
+.video-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.video-title {
+    font-size: 13px;
+    color: white;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.video-privacy-select {
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.video-privacy-select:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+.video-privacy-select option {
+    background: #1a1a1a;
+    color: white;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+.content-section {
+    margin-bottom: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    width: 100%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.8);
+    transition: background 0.2s;
+}
+
+.section-header:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.section-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.section-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    flex: 1;
+}
+
+.section-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+}
+
+.section-count {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.section-content {
+    padding: 0 16px 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Subfolders List */
+.subfolders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 12px;
+    margin-bottom: 12px;
+}
+
+.subfolder-item {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.subfolder-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    width: 100%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.8);
+    transition: background 0.2s;
+}
+
+.subfolder-header:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.subfolder-name {
+    flex: 1;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+}
+
+.subfolder-count {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.delete-subfolder-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.delete-subfolder-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+.create-subfolder-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
+    margin-top: 12px;
+}
+
+.create-subfolder-form input {
+    flex: 1;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+}
+
+.create-subfolder-form input:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+.create-subfolder-form input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.create-subfolder-form .create-btn {
+    padding: 10px 12px;
+    background: #3b82f6;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.create-subfolder-form .create-btn:hover:not(:disabled) {
+    background: #2563eb;
+}
+
+.create-subfolder-form .create-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.create-subfolder-form .cancel-btn {
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    font-size: 13px;
+    transition: background 0.2s;
+}
+
+.create-subfolder-form .cancel-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.add-subfolder-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s;
+    margin-top: 12px;
+}
+
+.add-subfolder-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: white;
+}
+
+.root-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    margin-top: 12px;
+}
+
+.empty-message {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 13px;
+    text-align: center;
+    padding: 16px 0;
+    margin: 0;
+}
+
+
+.folder-content-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
+}
+
+.content-thumb {
+    width: 50px;
+    height: 70px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #2a2a2a;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.content-thumb video,
+.content-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.content-thumb .play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    opacity: 0.8;
+}
+
+.content-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.content-title {
+    font-size: 13px;
+    color: white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.content-type {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.move-content-btn {
+    width: 36px;
+    min-width: 36px;
+    max-width: 36px;
+    height: 36px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+
+.move-content-btn:hover {
+    width: 36px;
+    min-width: 36px;
+    max-width: 36px;
+    background: rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.4);
+    color: #3b82f6;
+}
+
+.settings-page.profile-visibility .footer-logo-container {
+    margin-left: -20px;
+    margin-top: auto;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+/* Profile Access Management Styles */
+.privacy-section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.access-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 24px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+}
+
+.access-requests-section,
+.access-list-section {
+    margin-bottom: 20px;
+}
+
+.access-subsection-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 0 12px 0;
+}
+
+.access-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.access-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+}
+
+.access-item.request {
+    background: rgba(251, 191, 36, 0.08);
+    border-color: rgba(251, 191, 36, 0.2);
+}
+
+.access-user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+}
+
+.access-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    flex-shrink: 0;
+}
+
+.access-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.access-username {
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+}
+
+.access-message {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.access-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.access-btn {
+    width: 36px;
+    min-width: 36px;
+    max-width: 36px;
+    height: 36px;
+    min-height: 36px;
+    max-height: 36px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+
+.access-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.access-btn.approve {
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+}
+
+.access-btn.approve:hover:not(:disabled) {
+    background: rgba(34, 197, 94, 0.25);
+}
+
+.access-btn.deny {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+.access-btn.deny:hover:not(:disabled) {
+    background: rgba(239, 68, 68, 0.25);
+}
+
+.access-btn.revoke {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.access-btn.revoke:hover:not(:disabled) {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+.no-access-users {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
+    text-align: center;
+    padding: 20px;
+    margin: 0;
+}
+
+/* Access Denied Message */
+.access-denied-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.access-denied-message svg {
+    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.access-denied-message h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    margin: 0 0 12px 0;
+}
+
+.access-denied-message p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+    max-width: 280px;
+}

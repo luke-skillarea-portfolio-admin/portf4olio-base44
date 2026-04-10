@@ -1,0 +1,297 @@
+.settings-page {
+    height: 100vh;
+    width: 390px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #1a1a1a;
+    overflow: hidden;
+    color: #1a1a1a;
+    position: relative;
+}
+
+.settings-top-bar {
+    margin: -20px;
+    margin-bottom: 16px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    z-index: 10;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.back-button {
+    background: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.back-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.back-button:active {
+    transform: scale(0.98);
+}
+
+.settings-content {
+    flex: 1; 
+    overflow-y: auto;
+    
+    display: flex;
+    flex-direction: column; 
+    
+    padding: 20px;
+    padding-bottom: 40px;
+}
+
+.settings-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.settings-header h1 {
+    font-size: 1.8rem;
+    color: #ffffff;
+    margin: 0;
+    font-weight: 700;
+}
+
+.settings-section {
+    margin-bottom: 30px;
+}
+
+.settings-section-title {
+    font-size: 1.1rem;
+    color: #ffffff;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.user-info-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.user-info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-info-item:last-child {
+    border-bottom: none;
+}
+
+.user-info-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+}
+
+.user-info-value {
+    font-size: 0.9rem;
+    color: #ffffff;
+    font-weight: 600;
+    text-align: right;
+}
+
+.settings-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.settings-button {
+    width: 100%;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.admin-button {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.admin-button:hover {
+    background: rgba(59, 130, 246, 0.3);
+    border-color: rgba(59, 130, 246, 0.5);
+    transform: translateY(-2px);
+}
+
+.logout-button {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.logout-button:hover {
+    background: rgba(239, 68, 68, 0.3);
+    border-color: rgba(239, 68, 68, 0.5);
+    transform: translateY(-2px);
+}
+
+.settings-button:active {
+    transform: translateY(0);
+}
+
+/* Password Reset Button */
+.password-button {
+    background: rgba(168, 85, 247, 0.2);
+    color: #c084fc;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.password-button:hover {
+    background: rgba(168, 85, 247, 0.3);
+    border-color: rgba(168, 85, 247, 0.5);
+    transform: translateY(-2px);
+}
+
+/* Password Change Form */
+.password-change-form {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.password-input-group {
+    margin-bottom: 16px;
+}
+
+.password-input-group label {
+    display: block;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input-wrapper input {
+    width: 100%;
+    padding: 12px 14px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 0.95rem;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.password-input-wrapper input:focus {
+    outline: none;
+    border-color: rgba(168, 85, 247, 0.5);
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.password-input-wrapper input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.password-message {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.password-message.error {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #f87171;
+}
+
+.password-message.success {
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: #4ade80;
+}
+
+.submit-password-btn {
+    margin-top: 8px;
+    background: rgba(168, 85, 247, 0.3);
+    color: #c084fc;
+    border: 1px solid rgba(168, 85, 247, 0.4);
+}
+
+.submit-password-btn:hover:not(:disabled) {
+    background: rgba(168, 85, 247, 0.4);
+    border-color: rgba(168, 85, 247, 0.6);
+    transform: translateY(-2px);
+}
+
+.submit-password-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .settings-content {
+        padding: 15px;
+    }
+
+    .settings-header h1 {
+        font-size: 1.5rem;
+    }
+}
+
+.settings-page .footer-logo-container {
+    margin-left: -20px;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    justify-content: center;
+    
+    width: 100%;
+    padding-bottom: 26px; 
+}
+
+.settings-page .footer-line {
+    width: 390px;
+    height: 1px;
+    background-color: #333;
+}
+
+.settings-page .footer-logo img {
+    height: 75px;
+    width: auto;
+    object-fit: contain;
+    opacity: 0.8;
+}
+
+.edit-bio-button {
+    width: 90px;
+}
+
+.edit-bio-button:hover {
+    width: 90px;
+}

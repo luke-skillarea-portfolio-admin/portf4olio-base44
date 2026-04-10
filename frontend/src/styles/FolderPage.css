@@ -1,0 +1,726 @@
+/* Folder Page Styles */
+
+.folder-page {
+    min-height: 100vh;
+    height: 100vh;
+    width: 390px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #0a0a0a;
+    overflow: hidden;
+    color: #e0e0e0;
+}
+
+@media (min-width: 500px) {
+    .folder-page {
+        height: 92vh;
+        border-radius: 12px;
+    }
+}
+
+.folder-top-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.folder-title-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.folder-title-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.folder-title-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.folder-title-section h1 {
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    margin: 0;
+}
+
+.folder-subtitle {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.folder-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    padding-bottom: 100px;
+}
+
+.folder-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    color: rgba(255, 255, 255, 0.6);
+    gap: 12px;
+}
+
+.folder-error {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #f87171;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.folder-success {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: #22c55e;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+/* Section Styles */
+.folder-section {
+    margin-bottom: 28px;
+}
+
+.folder-section h2 {
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    margin: 0 0 12px 0;
+}
+
+.section-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.section-header-row h2 {
+    margin: 0;
+    flex: 1;
+}
+
+.create-subfolder-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 8px;
+    color: #3b82f6;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    width: max-content !important;
+    max-width: max-content !important;
+    min-width: 0 !important;
+}
+
+.create-subfolder-btn:hover {
+    background: rgba(59, 130, 246, 0.25);
+    width: max-content !important;
+    max-width: max-content !important;
+}
+
+.create-subfolder-btn svg {
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    max-width: 16px !important;
+}
+
+/* Create Subfolder Inline */
+.create-subfolder-inline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+
+.create-subfolder-inline input {
+    flex: 1;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+}
+
+.create-subfolder-inline input:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+.create-subfolder-inline input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.create-subfolder-inline .confirm-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #3b82f6;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.create-subfolder-inline .confirm-btn:hover:not(:disabled) {
+    background: #2563eb;
+}
+
+.create-subfolder-inline .confirm-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.create-subfolder-inline .cancel-btn {
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    font-size: 13px;
+    transition: background 0.2s;
+}
+
+.create-subfolder-inline .cancel-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Subfolders Grid */
+.subfolders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+}
+
+.empty-text {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 13px;
+    text-align: center;
+    padding: 20px;
+    margin: 0;
+    grid-column: 1 / -1;
+}
+
+/* Subfolder Card */
+.subfolder-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.subfolder-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.subfolder-card.drag-over {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: #3b82f6;
+    transform: scale(1.02);
+}
+
+.subfolder-card-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fbbf24;
+    margin-bottom: 8px;
+}
+
+.subfolder-card-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    text-align: center;
+}
+
+.subfolder-card-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.subfolder-card-count {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.subfolder-delete-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    max-width: 24px !important;
+    min-height: 24px !important;
+    max-height: 24px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+    opacity: 0;
+    flex-shrink: 0;
+}
+
+.subfolder-card:hover .subfolder-delete-btn {
+    opacity: 1;
+}
+
+.subfolder-delete-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    width: 24px !important;
+    max-width: 24px !important;
+}
+
+.subfolder-delete-btn svg {
+    width: 14px !important;
+    height: 14px !important;
+    min-width: 14px !important;
+    max-width: 14px !important;
+    flex-shrink: 0;
+}
+
+.drop-indicator {
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: #3b82f6;
+    font-weight: 600;
+}
+
+/* Content Grid */
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+}
+
+/* Content Card */
+.content-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: grab;
+    transition: all 0.2s;
+}
+
+.content-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+}
+
+.content-card:active {
+    cursor: grabbing;
+}
+
+.content-card-thumb {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9/16;
+    background: #1a1a1a;
+}
+
+.content-card-thumb video,
+.content-card-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.content-type-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    color: white;
+}
+
+.content-type-badge.video {
+    background: rgba(239, 68, 68, 0.8);
+}
+
+.content-type-badge.photo {
+    background: rgba(59, 130, 246, 0.8);
+}
+
+.content-card-info {
+    padding: 10px;
+}
+
+.content-card-title {
+    font-size: 12px;
+    color: white;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.content-card-actions {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.content-card:hover .content-card-actions {
+    opacity: 1;
+}
+
+.content-card-actions .move-btn {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    max-width: 28px;
+    min-height: 28px;
+    max-height: 28px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.content-card-actions .move-btn:hover {
+    background: rgba(59, 130, 246, 0.8);
+}
+
+.drag-handle {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    color: rgba(255, 255, 255, 0.6);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.content-card:hover .drag-handle {
+    opacity: 1;
+}
+
+/* Drag Hint */
+.drag-hint {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background: rgba(59, 130, 246, 0.9);
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* Empty Subfolder */
+.empty-subfolder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    color: rgba(255, 255, 255, 0.4);
+    text-align: center;
+}
+
+.empty-subfolder p {
+    font-size: 15px;
+    margin: 12px 0 4px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.empty-subfolder span {
+    font-size: 13px;
+}
+
+/* Spin animation */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+/* Access Management Section */
+.access-section {
+    background: rgba(59, 130, 246, 0.05);
+    border: 1px solid rgba(59, 130, 246, 0.15);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.access-section .section-header-row h2 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #3b82f6;
+}
+
+.share-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 8px;
+    color: #3b82f6;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: max-content !important;
+}
+
+.share-link-btn:hover {
+    background: rgba(59, 130, 246, 0.25);
+}
+
+.share-link-btn svg {
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+}
+
+.access-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Access Requests */
+.access-requests {
+    margin-bottom: 16px;
+}
+
+.access-requests h3,
+.access-list h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 0 10px 0;
+}
+
+.requests-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.request-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.request-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+}
+
+.request-username {
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+}
+
+.request-message {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.request-actions {
+    display: flex;
+    gap: 8px;
+    margin-left: 12px;
+}
+
+.approve-btn,
+.deny-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.approve-btn {
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+}
+
+.approve-btn:hover {
+    background: rgba(34, 197, 94, 0.3);
+}
+
+.deny-btn {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+.deny-btn:hover {
+    background: rgba(239, 68, 68, 0.3);
+}
+
+/* Access List */
+.access-users {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.access-user-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
+}
+
+.access-username {
+    font-size: 14px;
+    color: white;
+}
+
+.revoke-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    background: rgba(239, 68, 68, 0.1);
+    border: none;
+    border-radius: 6px;
+    color: #ef4444;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.revoke-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+}
+
+.revoke-btn svg {
+    width: 14px;
+    height: 14px;
+}

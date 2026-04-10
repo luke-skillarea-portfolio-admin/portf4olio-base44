@@ -1,0 +1,100 @@
+/* Sidebar Overlay */
+.sidebarOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+/* Sidebar */
+.sidebar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: -200px;
+    width: 200px;
+    background: #1a1a1a;
+    z-index: 101;
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar--open {
+    right: 0;
+}
+
+.sidebarHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #333;
+}
+
+.sidebarTitle {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.sidebarClose {
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    padding: 4px;
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    max-width: 28px;
+    min-height: 28px;
+    max-height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.sidebarContent {
+    flex: 1;
+    padding: 8px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.sidebarItem {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 12px;
+    width: 100%;
+    padding: 14px 16px !important;
+    background: none !important;
+    border: none !important;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: left !important;
+    box-sizing: border-box !important;
+    transform: none !important;
+    transition: none !important;
+    position: static !important;
+    margin: 0 !important;
+}
+
+.sidebarItem:hover {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    transform: none !important;
+    padding: 14px 16px !important;
+    background: none !important;
+    position: static !important;
+    margin: 0 !important;
+    width: 100% !important;
+}

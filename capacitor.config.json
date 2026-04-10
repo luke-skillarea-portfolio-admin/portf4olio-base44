@@ -1,0 +1,10 @@
+{
+  "appId": "com.portf4olio.app",
+  "appName": "Portf4olio",
+  "webDir": "frontend/dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "http",
+    "cleartext": true
+  }
+}

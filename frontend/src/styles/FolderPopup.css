@@ -1,0 +1,373 @@
+/* Folder Popup Styles */
+.folder-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.folder-popup {
+    background: #1e1e1e;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.folder-popup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+    gap: 12px;
+}
+
+.folder-popup-title {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    flex: 1;
+    min-width: 0;
+}
+
+.folder-popup-title span:first-of-type {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.folder-popup-count {
+    margin-left: 8px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: normal;
+}
+
+.folder-popup-close {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+}
+
+.folder-popup-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.9);
+    width: 32px;
+    height: 32px;
+}
+
+.folder-popup-description {
+    padding: 12px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.folder-popup-description p {
+    margin: 0;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.4;
+}
+
+.folder-popup-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+}
+
+@media (max-width: 480px) {
+    .content-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 10px;
+    }
+}
+
+.content-item {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #2a2a2a;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.content-item:hover {
+    transform: scale(1.02);
+}
+
+.content-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #2a2a2a;
+}
+
+.content-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.content-item:hover .content-overlay {
+    opacity: 1;
+}
+
+.photo-count-badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    z-index: 1;
+}
+
+.empty-folder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.empty-folder p {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0 0 4px 0;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.empty-folder span {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Post Modal Styles */
+.post-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+    padding: 20px;
+}
+
+.post-modal {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    background: #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-modal-header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    padding: 16px;
+}
+
+.post-modal-close {
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+.post-modal-close:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.post-modal-video {
+    width: 100%;
+    height: auto;
+    max-height: 70vh;
+    background: black;
+}
+
+.post-modal-photo-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.post-modal-photo {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    background: black;
+}
+
+.photo-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    color: white;
+    font-size: 24px;
+    padding: 16px 20px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.2s ease;
+    z-index: 10;
+}
+
+.photo-nav:hover:not(:disabled) {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.photo-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.photo-nav-prev {
+    left: 20px;
+}
+
+.photo-nav-next {
+    right: 20px;
+}
+
+.photo-indicators {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.photo-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.photo-indicator.active {
+    background: white;
+}
+
+.post-modal-description {
+    padding: 16px 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.post-modal-description p {
+    margin: 0;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.4;
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+    .folder-popup-overlay {
+        padding: 10px;
+    }
+    
+    .folder-popup {
+        max-height: 85vh;
+    }
+    
+    .folder-popup-header {
+        padding: 12px 16px;
+    }
+    
+    .folder-popup-content {
+        padding: 16px;
+    }
+    
+    .post-modal-overlay {
+        padding: 10px;
+    }
+    
+    .photo-nav {
+        font-size: 20px;
+        padding: 12px 16px;
+    }
+    
+    .photo-nav-prev {
+        left: 10px;
+    }
+    
+    .photo-nav-next {
+        right: 10px;
+    }
+    
+    .photo-indicators {
+        bottom: 10px;
+    }
+}

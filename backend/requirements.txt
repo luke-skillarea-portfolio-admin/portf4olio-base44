@@ -1,0 +1,10 @@
+Django==4.2.16
+djangorestframework==3.14.0
+django-cors-headers==4.3.1
+psycopg2-binary==2.9.9
+python-decouple==3.8
+pytz
+stripe==11.1.1
+
+gunicorn==21.2.0
+google-cloud-storage
