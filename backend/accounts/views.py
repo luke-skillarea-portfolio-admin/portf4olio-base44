@@ -57,6 +57,7 @@ import os
 import uuid
 import subprocess
 import tempfile
+from pathlib import Path
 import requests as http_requests
 from rest_framework.parsers import MultiPartParser, FormParser
 from google.cloud import storage
@@ -80,8 +81,39 @@ def _is_admin(user):
 def _is_agency(user):
     return getattr(user, 'account_type', None) == 'agency'
 
+
 def _is_user(user):
     return getattr(user, 'account_type', None) == 'user'
+
+
+def _build_local_media_url(request, relative_path):
+    return request.build_absolute_uri(f"{settings.MEDIA_URL}{relative_path}")
+
+
+def _save_file_to_local_media(file_obj, relative_dir, request, default_ext):
+    media_root = Path(settings.MEDIA_ROOT)
+    full_dir = media_root / relative_dir
+    full_dir.mkdir(parents=True, exist_ok=True)
+
+    ext = os.path.splitext(getattr(file_obj, 'name', '') or '')[1] or default_ext
+    safe_name = f"{uuid.uuid4().hex}{ext}"
+    file_path = full_dir / safe_name
+
+    try:
+        file_obj.seek(0)
+    except Exception:
+        pass
+
+    with open(file_path, 'wb') as out_file:
+        if hasattr(file_obj, 'chunks'):
+            for chunk in file_obj.chunks():
+                out_file.write(chunk)
+        else:
+            out_file.write(file_obj.read())
+
+    relative_url = f"{relative_dir}/{safe_name}"
+    return _build_local_media_url(request, relative_url)
+
 
 class VideoUploadView(APIView):
     parser_classes = (MultiPartParser, FormParser)
@@ -108,62 +140,64 @@ class VideoUploadView(APIView):
 
         bucket_name = getattr(settings, 'GCS_BUCKET', '') or os.environ.get('GCS_BUCKET', '')
         if not bucket_name:
-            return Response({'error': 'GCS_BUCKET is not set in your environment/.env'}, status=500)
-
-        try:
-            project = getattr(settings, 'GCS_PROJECT', None)
-            storage_client = storage.Client(project=project)
-        except DefaultCredentialsError as e:
-            return Response(
-                {
-                    'error': 'Google Cloud credentials not found for GCS upload.',
-                    'details': str(e),
-                    'hint': 'Local dev: run `gcloud auth application-default login` OR set GOOGLE_APPLICATION_CREDENTIALS to a service-account JSON. Cloud Run: use a service account with Storage permissions (no key file).',
-                },
-                status=500,
-            )
-        bucket = storage_client.bucket(bucket_name)
-
-        ext = os.path.splitext(getattr(file_obj, 'name', '') or '')[1] or '.mp4'
-        safe_name = f"{uuid.uuid4().hex}{ext}"
-        blob_name = f'user_videos/{request.user.id}/{safe_name}'
-        blob = bucket.blob(blob_name)
-
-        # Ensure we are at the beginning of the uploaded stream
-        try:
-            file_obj.seek(0)
-        except Exception:
-            pass
-
-        try:
-            blob.upload_from_file(file_obj, content_type=content_type)
-
-            is_public = False
+            video_url = _save_file_to_local_media(file_obj, f'user_videos/{request.user.id}', request, '.mp4')
+            is_public = True
             public_warning = None
+        else:
             try:
-                blob.make_public()
-                is_public = True
-            except BadRequest as e:
-                # Common case: uniform bucket-level access enabled (ACLs disabled)
-                public_warning = (
-                    'Bucket has uniform bucket-level access enabled, so legacy ACLs are disabled and make_public() cannot be used. '
-                    'If you need a publicly viewable URL, make the bucket public via IAM (allUsers:objectViewer) or switch to signed/proxied URLs.'
+                project = getattr(settings, 'GCS_PROJECT', None)
+                storage_client = storage.Client(project=project)
+            except DefaultCredentialsError as e:
+                return Response(
+                    {
+                        'error': 'Google Cloud credentials not found for GCS upload.',
+                        'details': str(e),
+                        'hint': 'Local dev: run `gcloud auth application-default login` OR set GOOGLE_APPLICATION_CREDENTIALS to a service-account JSON. Cloud Run: use a service account with Storage permissions (no key file).',
+                    },
+                    status=500,
                 )
-            except Forbidden:
-                public_warning = (
-                    'Uploaded but could not set public ACL (forbidden). If you need public access, adjust bucket permissions or switch to signed/proxied URLs.'
-                )
+            bucket = storage_client.bucket(bucket_name)
 
-            video_url = blob.public_url
-        except Forbidden as e:
-            return Response(
-                {
-                    'error': 'GCS upload forbidden. This is usually bucket IAM permissions or billing is disabled for the bucket project.',
-                    'details': str(e),
-                    'bucket': bucket_name,
-                },
-                status=403,
-            )
+            ext = os.path.splitext(getattr(file_obj, 'name', '') or '')[1] or '.mp4'
+            safe_name = f"{uuid.uuid4().hex}{ext}"
+            blob_name = f'user_videos/{request.user.id}/{safe_name}'
+            blob = bucket.blob(blob_name)
+
+            # Ensure we are at the beginning of the uploaded stream
+            try:
+                file_obj.seek(0)
+            except Exception:
+                pass
+
+            try:
+                blob.upload_from_file(file_obj, content_type=content_type)
+
+                is_public = False
+                public_warning = None
+                try:
+                    blob.make_public()
+                    is_public = True
+                except BadRequest as e:
+                    # Common case: uniform bucket-level access enabled (ACLs disabled)
+                    public_warning = (
+                        'Bucket has uniform bucket-level access enabled, so legacy ACLs are disabled and make_public() cannot be used. '
+                        'If you need a publicly viewable URL, make the bucket public via IAM (allUsers:objectViewer) or switch to signed/proxied URLs.'
+                    )
+                except Forbidden:
+                    public_warning = (
+                        'Uploaded but could not set public ACL (forbidden). If you need public access, adjust bucket permissions or switch to signed/proxied URLs.'
+                    )
+
+                video_url = blob.public_url
+            except Forbidden as e:
+                return Response(
+                    {
+                        'error': 'GCS upload forbidden. This is usually bucket IAM permissions or billing is disabled for the bucket project.',
+                        'details': str(e),
+                        'bucket': bucket_name,
+                    },
+                    status=403,
+                )
 
         # Handle folder assignment and privacy
         subfolder = None
@@ -221,25 +255,28 @@ class PhotoUploadView(APIView):
             return Response({'error': 'You can upload at most 5 images.'}, status=400)
 
         bucket_name = getattr(settings, 'GCS_BUCKET', '') or os.environ.get('GCS_BUCKET', '')
-        if not bucket_name:
-            return Response({'error': 'GCS_BUCKET is not set in your environment/.env'}, status=500)
-
-        try:
-            storage_client = storage.Client()
-        except DefaultCredentialsError as e:
-            return Response({
-                'error': 'Google Cloud credentials not found for GCS upload.',
-                'details': str(e),
-            }, status=500)
-
-        bucket = storage_client.bucket(bucket_name)
-
+        local_upload = not bool(bucket_name)
         urls = []
+
         for idx, f in enumerate(files):
             content_type = getattr(f, 'content_type', '') or ''
             if not content_type.startswith('image/'):
                 return Response({'error': 'Only image files are allowed.'}, status=400)
 
+            if local_upload:
+                url = _save_file_to_local_media(f, f'user_photos/{request.user.id}', request, '.jpg')
+                urls.append(url)
+                continue
+
+            try:
+                storage_client = storage.Client()
+            except DefaultCredentialsError as e:
+                return Response({
+                    'error': 'Google Cloud credentials not found for GCS upload.',
+                    'details': str(e),
+                }, status=500)
+
+            bucket = storage_client.bucket(bucket_name)
             ext = os.path.splitext(getattr(f, 'name', '') or '')[1] or '.jpg'
             safe_name = f"{uuid.uuid4().hex}{ext}"
             blob_name = f'user_photos/{request.user.id}/{safe_name}'
@@ -249,14 +286,12 @@ class PhotoUploadView(APIView):
             except Exception:
                 pass
             blob.upload_from_file(f, content_type=content_type)
-            # Use public URL for simplicity; may be non-public depending on bucket settings
             urls.append(blob.public_url)
 
         # Handle folder assignment and privacy
-        folder = None
         subfolder = None
         privacy = 'public'  # Default privacy
-        
+
         if folder_id:
             try:
                 from .models import Subfolder
@@ -311,43 +346,45 @@ class MessageAttachmentUploadView(APIView):
             return Response({'error': 'Only image and video files are allowed.'}, status=400)
 
         bucket_name = getattr(settings, 'GCS_BUCKET', '') or os.environ.get('GCS_BUCKET', '')
-        if not bucket_name:
-            return Response({'error': 'GCS_BUCKET is not set'}, status=500)
-
-        try:
-            project = getattr(settings, 'GCS_PROJECT', None)
-            storage_client = storage.Client(project=project)
-        except DefaultCredentialsError as e:
-            return Response({
-                'error': 'Google Cloud credentials not found.',
-                'details': str(e),
-            }, status=500)
-
-        bucket = storage_client.bucket(bucket_name)
+        local_upload = not bool(bucket_name)
 
         ext = os.path.splitext(getattr(file_obj, 'name', '') or '')[1] or ('.jpg' if attachment_type == 'photo' else '.mp4')
         safe_name = f"{uuid.uuid4().hex}{ext}"
-        blob_name = f'{folder}/{request.user.id}/{safe_name}'
-        blob = bucket.blob(blob_name)
 
-        try:
-            file_obj.seek(0)
-        except Exception:
-            pass
-
-        try:
-            blob.upload_from_file(file_obj, content_type=content_type)
+        if local_upload:
+            attachment_url = _save_file_to_local_media(file_obj, f'{folder}/{request.user.id}', request, ext)
+        else:
             try:
-                blob.make_public()
-            except (BadRequest, Forbidden):
-                pass  
+                project = getattr(settings, 'GCS_PROJECT', None)
+                storage_client = storage.Client(project=project)
+            except DefaultCredentialsError as e:
+                return Response({
+                    'error': 'Google Cloud credentials not found.',
+                    'details': str(e),
+                }, status=500)
 
-            attachment_url = blob.public_url
-        except Forbidden as e:
-            return Response({
-                'error': 'GCS upload forbidden.',
-                'details': str(e),
-            }, status=403)
+            bucket = storage_client.bucket(bucket_name)
+            blob_name = f'{folder}/{request.user.id}/{safe_name}'
+            blob = bucket.blob(blob_name)
+
+            try:
+                file_obj.seek(0)
+            except Exception:
+                pass
+
+            try:
+                blob.upload_from_file(file_obj, content_type=content_type)
+                try:
+                    blob.make_public()
+                except (BadRequest, Forbidden):
+                    pass  
+
+                attachment_url = blob.public_url
+            except Forbidden as e:
+                return Response({
+                    'error': 'GCS upload forbidden.',
+                    'details': str(e),
+                }, status=403)
 
         return Response({
             'attachment_type': attachment_type,
@@ -373,15 +410,19 @@ class ProfilePictureUploadView(APIView):
             return Response({'error': 'Image must be less than 10MB.'}, status=400)
 
         bucket_name = getattr(settings, 'GCS_BUCKET', '') or os.environ.get('GCS_BUCKET', '')
-        if not bucket_name:
-            return Response({'error': 'GCS_BUCKET not configured'}, status=500)
+        local_upload = not bool(bucket_name)
+
+        ext = os.path.splitext(getattr(file_obj, 'name', ''))[1] or '.jpg'
+        if local_upload:
+            request.user.profile_picture = _save_file_to_local_media(file_obj, f'profile_pictures/{request.user.id}', request, '.jpg')
+            request.user.save(update_fields=['profile_picture'])
+            return Response({'profile_picture': request.user.profile_picture}, status=200)
 
         try:
             storage_client = storage.Client(project=getattr(settings, 'GCS_PROJECT', None))
         except DefaultCredentialsError as e:
             return Response({'error': 'GCS credentials not found', 'details': str(e)}, status=500)
 
-        ext = os.path.splitext(getattr(file_obj, 'name', ''))[1] or '.jpg'
         blob_name = f'profile_pictures/{request.user.id}/{uuid.uuid4().hex}{ext}'
         blob = storage_client.bucket(bucket_name).blob(blob_name)
 
@@ -550,6 +591,17 @@ def video_stream_view(request, video_id):
 
     video_url = getattr(video, 'video_url', '') or ''
     parsed = urlparse(video_url)
+
+    # Local media URL handling for development
+    if parsed.path.startswith(settings.MEDIA_URL):
+        media_path = Path(settings.MEDIA_ROOT) / parsed.path[len(settings.MEDIA_URL):].lstrip('/')
+        if not media_path.exists():
+            return Response({'error': 'Local video file not found'}, status=404)
+        content_type = 'video/mp4' if media_path.suffix.lower() == '.mp4' else 'application/octet-stream'
+        response = FileResponse(open(media_path, 'rb'), content_type=content_type)
+        response['Content-Disposition'] = 'inline'
+        return response
+
     # Expected: https://storage.googleapis.com/<bucket>/<object>
     # Path: /<bucket>/<object>
     path = unquote(parsed.path or '')
